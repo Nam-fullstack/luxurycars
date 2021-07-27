@@ -1,2 +1,30 @@
 <h1>Home#restricted</h1>
 <p>Find me in app/views/home/restricted.html.erb</p>
+
+<%
+=begin%>
+  THIS SHOULD BE IN SHOW.HTML.ERB
+
+    <%if current_user && @listing.sold == false%>
+          <button data-stripe="payment" class="btn btn-primary p-3">Buy: $<%=@listing.price%></button>
+        <%elsif @listing.sold == true%>
+          <button class='btn btn-secondary' disabled>SOLD</button>
+        <%else%>
+          <%=button_to "Login to buy", new_user_session_path, class: "btn btn-info"%>
+    <%end%>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  document.querySelector("[data-stripe='payment']")
+      .addEventListener("click", () => {
+        const stripe = Stripe(
+          "<%=Rails.application.credentials.dig(:stripe, :public_key)%>"
+        );
+        stripe.redirectToCheckout({
+          sessionId: "<%=@session_id%>"
+        });
+      });
+</script>
+
+<%
+=end%>
