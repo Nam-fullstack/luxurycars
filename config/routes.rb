@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'pages/home'
+  get 'pages/restricted'
   get 'home/restricted'
   devise_for :users
   root to: "pages#home"
@@ -8,5 +10,5 @@ Rails.application.routes.draw do
     get "/session_timeout" => "session_timeout#render_timeout"
   end
 
-  get '/success', to "payment#success", as: "payment_success"
+  # get '/success', to "payment#success", as: "payment_success"
 end
